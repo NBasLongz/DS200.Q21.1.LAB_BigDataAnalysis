@@ -6,21 +6,15 @@
 
 <h1 align="center"><b>DS200.Q21.1 - Big Data Analysis — LAB workspace</b></h1>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Repository-NBasLongz%2FDS200.Q21.1.LAB_BigDataAnalysis-blue?style=for-the-badge" alt="repo" />
-  <img src="https://img.shields.io/badge/Jupyter%20Notebook-96%25-brightgreen?style=for-the-badge&logo=jupyter" alt="Notebooks" />
-  <img src="https://img.shields.io/badge/Java-3.6%25-orange?style=for-the-badge&logo=openjdk" alt="Java" />
-  <img src="https://img.shields.io/badge/Shell-0.4%25-lightgrey?style=for-the-badge&logo=gnu-bash" alt="Shell" />
-</p>
 
 ---
 
-## Thông tin sinh viên (Vui lòng cung cấp để cập nhật)
+## Thông tin sinh viên  
+- Mã sinh viên: 23520880
+- Họ và tên : Nguyen Ba Long
+- Email liên hệ: 23520880@gm.uit.edu.vn
 
 
-| Mã SV     | Họ và tên       | GitHub                                  | Email                      |
-|:---------:|------------------|-----------------------------------------|----------------------------|
-| 23520880   | Nguyen Ba Long | [NBasLongz](https://github.com/NBasLongz) | 23520880@uit.edu.vn         |
 
 ---
 
