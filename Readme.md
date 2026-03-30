@@ -4,44 +4,41 @@
   </a>
 </p>
 
-<h1 align="center"><b>DS200.Q21.1 - Big Data Analysis — LAB workspace</b></h1>
-
-
----
-
-## Thông tin sinh viên  
-- Mã sinh viên: 23520880
-- Họ và tên : Nguyen Ba Long
-- Email liên hệ: 23520880@gm.uit.edu.vn
-
-
+<h1 align="center"><b>DS200.Q21.1 - Big Data Analysis — LAB Workspace</b></h1>
 
 ---
 
-## Mục đích
-
-Repo này là workspace cho môn DS200.Q21.1 — Big Data Analysis. Theo nội dung hiện có trong repo, phần lớn nội dung là Jupyter Notebook (phân tích & xử lý dữ liệu), kèm theo một số mã Java MapReduce và vài script shell hỗ trợ. Mục tiêu: lưu trữ các bài lab, notebook phân tích, mã MapReduce (nếu cần) và tài liệu hướng dẫn.
-
----
-
-## Nội dung chính của repo
-
-- notebooks/           ← Jupyter notebooks cho các bài lab (phần lớn nội dung)
-- data/                ← dữ liệu mẫu (CSV, TXT, ...)
-- hadoop/java/         ← (tùy chọn) mã Java MapReduce (nếu có)
-- scripts/             ← script shell để chạy/builde hoặc tiền xử lý
-- output/              ← kết quả chạy, báo cáo, logs
-- slides/              ← tài liệu bài giảng (nếu có)
-- screenshots/         ← ảnh chụp màn hình nộp bài
+## Student Information
+- Student ID: 23520880
+- Full Name: Nguyen Ba Long
+- Contact Email: 23520880@gm.uit.edu.vn
 
 ---
 
-## Cấu trúc thư mục (ví dụ tham khảo)
+## Purpose
+
+This repository is the workspace for the course DS200.Q21.1 — Big Data Analysis. Based on the current content, most of the material consists of Jupyter Notebooks for data analysis and processing, along with some Java MapReduce code and shell scripts for support. The goal is to store lab assignments, analysis notebooks, MapReduce code (if needed), and guide documents.
+
+---
+
+## Main Content of the Repository
+
+- notebooks/           ← Jupyter notebooks for lab assignments (main content)
+- data/                ← sample data files (CSV, TXT, etc.)
+- hadoop/java/         ← (optional) Java MapReduce code (if available)
+- scripts/             ← shell scripts for running/building or preprocessing
+- output/              ← results from runs, reports, logs
+- slides/              ← lecture materials (if available)
+- screenshots/         ← screenshots for assignment submissions
+
+---
+
+## Directory Structure (Example Reference)
 
 ```text
 DS200.Q21.1.LAB_BigDataAnalysis/
 ├── README.md
-├── requirements.txt           ← (tùy chọn) dependencies cho notebooks
+├── requirements.txt           ← (optional) dependencies for notebooks
 ├── data/
 ├── notebooks/
 │   ├── lab01_analysis.ipynb
@@ -52,3 +49,4 @@ DS200.Q21.1.LAB_BigDataAnalysis/
 ├── scripts/
 ├── output/
 └── screenshots/
+```
