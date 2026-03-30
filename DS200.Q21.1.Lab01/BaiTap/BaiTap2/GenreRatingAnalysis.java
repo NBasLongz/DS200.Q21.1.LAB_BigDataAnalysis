@@ -18,10 +18,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class GenreRatingAnalysis {
 
-    // ================= MAPPER =================
     public static class GenreJoinMapper extends Mapper<Object, Text, Text, DoubleWritable> {
         
-        // Từ điển lưu trữ movieId -> chuỗi Thể loại (Genres)
+        // Map movieId to genres
         private Map<String, String> movieGenresMap = new HashMap<>();
         
         private Text genreKey = new Text();
@@ -36,12 +35,10 @@ public class GenreRatingAnalysis {
                 String line;
                 
                 while ((line = br.readLine()) != null) {
-                    // Cắt chuỗi bằng dấu phẩy. Nếu file của bạn dùng dấu :: thì sửa lại thành line.split("::")
-                    String[] parts = line.split(","); 
+                    String[] parts = line.split(",");
                     
                     if (parts.length >= 3) {
                         String movieId = parts[0].trim();
-                        // Thể loại thường nằm ở cột cuối cùng trong file movies.txt
                         String genres = parts[parts.length - 1].trim(); 
                         movieGenresMap.put(movieId, genres);
                     }
@@ -53,36 +50,31 @@ public class GenreRatingAnalysis {
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
-            String[] parts = line.split(","); // Tương tự, sửa dấu , thành :: nếu cần
+            String[] parts = line.split(",");
             
             if (parts.length >= 3) {
                 try {
-                    String movieId = parts[1].trim(); // Cột 2: movieId
-                    double rating = Double.parseDouble(parts[2].trim()); // Cột 3: rating
+                    String movieId = parts[1].trim();
+                    double rating = Double.parseDouble(parts[2].trim());
 
-                    // Lấy chuỗi thể loại từ từ điển dựa vào movieId
                     String genresStr = movieGenresMap.get(movieId);
 
                     if (genresStr != null) {
-                        // Phim có thể có nhiều thể loại, cắt bằng dấu |
                         String[] genres = genresStr.split("\\|");
 
                         ratingValue.set(rating);
 
-                        // Phát ra cặp <Thể loại, Điểm> cho TỪNG thể loại
                         for (String genre : genres) {
                             genreKey.set(genre.trim());
                             context.write(genreKey, ratingValue);
                         }
                     }
                 } catch (NumberFormatException e) {
-                    // Bỏ qua dòng tiêu đề hoặc lỗi số liệu
                 }
             }
         }
     }
 
-    // ================= REDUCER =================
     public static class GenreReducer extends Reducer<Text, DoubleWritable, Text, Text> {
         private Text resultValue = new Text();
 
@@ -99,7 +91,6 @@ public class GenreRatingAnalysis {
             if (count > 0) {
                 double average = sum / count;
                 
-                // Định dạng output đúng yêu cầu: Avg: xx, Count: xx
                 String formattedOutput = String.format("Avg: %.2f, Count: %d", average, count);
                 resultValue.set(formattedOutput);
                 context.write(key, resultValue);
@@ -107,7 +98,6 @@ public class GenreRatingAnalysis {
         }
     }
 
-    // ================= DRIVER =================
     public static void main(String[] args) throws Exception {
         if (args.length != 3) {
             System.err.println("Cách chạy: GenreRatingAnalysis <thư_mục_ratings> <thư_mục_output> <file_movies.txt>");
@@ -128,7 +118,6 @@ public class GenreRatingAnalysis {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
-        // Nạp file movies.txt vào bộ nhớ Cache
         job.addCacheFile(new Path(args[2]).toUri());
 
         FileInputFormat.addInputPath(job, new Path(args[0]));

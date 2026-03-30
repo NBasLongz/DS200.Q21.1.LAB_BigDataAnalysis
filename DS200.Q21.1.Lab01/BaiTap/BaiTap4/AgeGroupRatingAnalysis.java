@@ -17,7 +17,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class AgeGroupRatingAnalysis {
 
-    // ================= MAPPER =================
     public static class AgeGroupMapper extends Mapper<Object, Text, Text, Text> {
         
         private Map<String, String> userAgeGroupMap = new HashMap<>();
@@ -37,19 +36,15 @@ public class AgeGroupRatingAnalysis {
                     String line;
                     
                     while ((line = br.readLine()) != null) {
-                        // Nhớ sửa thành "::" nếu dữ liệu của bạn dùng dấu này
-                        String[] parts = line.split(","); 
+                        String[] parts = line.split(",");
                         
-                        // Đọc file users.txt
                         if (fileName.contains("user") && parts.length >= 3) {
                             String userId = parts[0].trim();
                             
                             try {
-                                // Trong MovieLens, Tuổi thường nằm ở cột số 3 (index 2)
                                 int age = Integer.parseInt(parts[2].trim());
                                 String ageGroup = "";
                                 
-                                // Phân loại nhóm tuổi
                                 if (age <= 18) {
                                     ageGroup = "0-18";
                                 } else if (age <= 35) {
@@ -62,13 +57,10 @@ public class AgeGroupRatingAnalysis {
                                 
                                 userAgeGroupMap.put(userId, ageGroup);
                             } catch (NumberFormatException e) {
-                                // Bỏ qua nếu lỗi định dạng tuổi
                             }
-                        } 
-                        // Đọc file movies.txt
-                        else if (fileName.contains("movie") && parts.length >= 2) {
+                        } else if (fileName.contains("movie") && parts.length >= 2) {
                             String movieId = parts[0].trim();
-                            String title = parts[1].trim(); 
+                            String title = parts[1].trim();
                             movieTitleMap.put(movieId, title);
                         }
                     }
@@ -80,31 +72,28 @@ public class AgeGroupRatingAnalysis {
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
-            String[] parts = line.split(","); // Sửa thành "::" nếu cần
+            String[] parts = line.split(",");
             
             if (parts.length >= 3) {
                 try {
-                    String userId = parts[0].trim(); 
-                    String movieId = parts[1].trim(); 
-                    String rating = parts[2].trim(); 
+                    String userId = parts[0].trim();
+                    String movieId = parts[1].trim();
+                    String rating = parts[2].trim();
 
                     String ageGroup = userAgeGroupMap.get(userId);
                     String title = movieTitleMap.get(movieId);
 
                     if (title != null && ageGroup != null) {
                         titleKey.set(title);
-                        // Nối nhóm tuổi và điểm số, ví dụ: "18-35:4.5"
-                        ageRatingValue.set(ageGroup + ":" + rating); 
+                        ageRatingValue.set(ageGroup + ":" + rating);
                         context.write(titleKey, ageRatingValue);
                     }
                 } catch (Exception e) {
-                    // Bỏ qua dòng lỗi
                 }
             }
         }
     }
 
-    // ================= REDUCER =================
     public static class AgeGroupReducer extends Reducer<Text, Text, Text, Text> {
         private Text resultValue = new Text();
 
@@ -120,7 +109,6 @@ public class AgeGroupRatingAnalysis {
                     try {
                         double rating = Double.parseDouble(parts[1]);
 
-                        // Phân loại cộng điểm theo nhóm tuổi
                         switch (ageGroup) {
                             case "0-18":
                                 sum18 += rating;
@@ -140,30 +128,25 @@ public class AgeGroupRatingAnalysis {
                                 break;
                         }
                     } catch (NumberFormatException e) {
-                        // Bỏ qua
                     }
                 }
             }
 
-            // Tính điểm trung bình (nếu count = 0 thì trả về NA)
             String val18 = count18 > 0 ? String.format("%.2f", sum18 / count18) : "NA";
             String val35 = count35 > 0 ? String.format("%.2f", sum35 / count35) : "NA";
             String val50 = count50 > 0 ? String.format("%.2f", sum50 / count50) : "NA";
             String valOver50 = countOver50 > 0 ? String.format("%.2f", sumOver50 / countOver50) : "NA";
             
-            // Định dạng output đúng yêu cầu: 0-18: value 18-35: value 35-50: value 50+: value (không có dấu ngoặc)
             String formattedOutput = String.format("0-18: %s 18-35: %s 35-50: %s 50+: %s", 
                                                    val18, val35, val50, valOver50);
             resultValue.set(formattedOutput);
             
-            // In ra kết quả nếu bộ phim có ít nhất 1 người đánh giá
             if (count18 > 0 || count35 > 0 || count50 > 0 || countOver50 > 0) {
                 context.write(key, resultValue);
             }
         }
     }
 
-    // ================= DRIVER =================
     public static void main(String[] args) throws Exception {
         if (args.length != 4) {
             System.err.println("Cách chạy: AgeGroupRatingAnalysis <input_ratings> <output_dir> <users_file> <movies_file>");
@@ -184,8 +167,8 @@ public class AgeGroupRatingAnalysis {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
-        job.addCacheFile(new Path(args[2]).toUri()); // file users
-        job.addCacheFile(new Path(args[3]).toUri()); // file movies
+        job.addCacheFile(new Path(args[2]).toUri());
+        job.addCacheFile(new Path(args[3]).toUri());
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));

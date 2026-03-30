@@ -18,10 +18,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class MovieRatingAnalysis {
 
-    // ================= MAPPER =================
     public static class MovieMapper extends Mapper<Object, Text, Text, DoubleWritable> {
         
-        // Từ điển lưu trữ: movieId -> MovieTitle
+        // Map movieId to title
         private Map<String, String> movieTitleMap = new HashMap<>();
         
         private Text titleKey = new Text();
@@ -36,12 +35,11 @@ public class MovieRatingAnalysis {
                 String line;
                 
                 while ((line = br.readLine()) != null) {
-                    // Cắt chuỗi. Lưu ý kiểm tra lại dấu phân cách trong file của bạn (dấu , hay ::)
-                    String[] parts = line.split(","); 
+                    String[] parts = line.split(",");
                     
                     if (parts.length >= 2) {
                         String movieId = parts[0].trim();
-                        String title = parts[1].trim(); // Tên phim thường ở cột thứ 2
+                        String title = parts[1].trim();
                         movieTitleMap.put(movieId, title);
                     }
                 }
@@ -59,7 +57,6 @@ public class MovieRatingAnalysis {
                     String movieId = parts[1].trim(); 
                     double rating = Double.parseDouble(parts[2].trim()); 
 
-                    // Lấy tên phim từ từ điển
                     String title = movieTitleMap.get(movieId);
 
                     if (title != null) {
@@ -68,16 +65,14 @@ public class MovieRatingAnalysis {
                         context.write(titleKey, ratingValue);
                     }
                 } catch (NumberFormatException e) {
-                    // Bỏ qua dòng lỗi hoặc header
                 }
             }
         }
     }
 
-    // ================= REDUCER =================
     public static class MovieReducer extends Reducer<Text, DoubleWritable, Text, Text> {
         
-        // Khai báo biến lớp để tìm bộ phim có điểm cao nhất
+        // Track the movie with highest rating
         private double maxRating = -1.0;
         private String maxMovie = "";
         
@@ -96,12 +91,10 @@ public class MovieRatingAnalysis {
             if (count > 0) {
                 double average = sum / count;
                 
-                // Ghi ra kết quả của từng phim
                 String formattedOutput = String.format("Average rating: %.1f (Total ratings: %d)", average, count);
                 resultValue.set(formattedOutput);
                 context.write(key, resultValue);
 
-                // Cập nhật thông tin phim có điểm cao nhất (chỉ xét phim có >= 5 lượt đánh giá)
                 if (count >= 5 && average > maxRating) {
                     maxRating = average;
                     maxMovie = key.toString();
@@ -109,19 +102,16 @@ public class MovieRatingAnalysis {
             }
         }
 
-        // Hàm cleanup chạy 1 lần duy nhất ở cuối cùng sau khi reduce() đã xử lý mọi thứ
         @Override
         protected void cleanup(Context context) throws IOException, InterruptedException {
             if (!maxMovie.isEmpty()) {
                 String bestMovieStr = String.format("is the highest rated movie with an average rating of %.2f among movies with at least 5 ratings.", maxRating);
                 
-                // In ra dòng tổng kết ở cuối file part-r-00000
                 context.write(new Text("\n" + maxMovie), new Text(bestMovieStr));
             }
         }
     }
 
-    // ================= DRIVER =================
     public static void main(String[] args) throws Exception {
         if (args.length != 3) {
             System.err.println("Usage: MovieRatingAnalysis <input_ratings_dir> <output_dir> <movies_file_path>");
@@ -142,7 +132,6 @@ public class MovieRatingAnalysis {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
-        // Đưa file movies.txt vào Cache
         job.addCacheFile(new Path(args[2]).toUri());
 
         FileInputFormat.addInputPath(job, new Path(args[0]));

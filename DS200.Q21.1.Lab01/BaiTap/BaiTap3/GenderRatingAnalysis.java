@@ -17,7 +17,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class GenderRatingAnalysis {
 
-    // ================= MAPPER =================
     public static class GenderMapper extends Mapper<Object, Text, Text, Text> {
         
         private Map<String, String> userGenderMap = new HashMap<>();
@@ -37,20 +36,15 @@ public class GenderRatingAnalysis {
                     String line;
                     
                     while ((line = br.readLine()) != null) {
-                        // Sửa thành "::" nếu dữ liệu của bạn dùng dấu này
-                        String[] parts = line.split(","); 
+                        String[] parts = line.split(",");
                         
-                        // Đọc file users.txt
                         if (fileName.contains("user") && parts.length >= 2) {
                             String userId = parts[0].trim();
-                            // Cột 2 (index 1) thường là Giới tính (M/F)
-                            String gender = parts[1].trim().toUpperCase(); 
+                            String gender = parts[1].trim().toUpperCase();
                             userGenderMap.put(userId, gender);
-                        } 
-                        // Đọc file movies.txt
-                        else if (fileName.contains("movie") && parts.length >= 2) {
+                        } else if (fileName.contains("movie") && parts.length >= 2) {
                             String movieId = parts[0].trim();
-                            String title = parts[1].trim(); // Tên phim ở cột 2
+                            String title = parts[1].trim();
                             movieTitleMap.put(movieId, title);
                         }
                     }
@@ -62,33 +56,28 @@ public class GenderRatingAnalysis {
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
-            // Sửa thành "::" nếu cần
-            String[] parts = line.split(","); 
+            String[] parts = line.split(",");
             
             if (parts.length >= 3) {
                 try {
-                    String userId = parts[0].trim(); // Cột 1: userId
-                    String movieId = parts[1].trim(); // Cột 2: movieId
-                    String rating = parts[2].trim(); // Cột 3: rating
+                    String userId = parts[0].trim();
+                    String movieId = parts[1].trim();
+                    String rating = parts[2].trim();
 
                     String gender = userGenderMap.get(userId);
                     String title = movieTitleMap.get(movieId);
 
-                    // Chỉ phát ra nếu tìm thấy cả tên phim và giới tính
                     if (title != null && gender != null) {
                         titleKey.set(title);
-                        // Nối giới tính và điểm số, ví dụ: "M:4.5" hoặc "F:3.0"
-                        genderRatingValue.set(gender + ":" + rating); 
+                        genderRatingValue.set(gender + ":" + rating);
                         context.write(titleKey, genderRatingValue);
                     }
                 } catch (Exception e) {
-                    // Bỏ qua dòng lỗi
                 }
             }
         }
     }
 
-    // ================= REDUCER =================
     public static class GenderReducer extends Reducer<Text, Text, Text, Text> {
         private Text resultValue = new Text();
 
@@ -104,7 +93,6 @@ public class GenderRatingAnalysis {
                     try {
                         double rating = Double.parseDouble(parts[1]);
 
-                        // Phân loại cộng điểm theo giới tính
                         if (gender.equals("M")) {
                             sumMale += rating;
                             countMale++;
@@ -113,12 +101,10 @@ public class GenderRatingAnalysis {
                             countFemale++;
                         }
                     } catch (NumberFormatException e) {
-                        // Bỏ qua nếu lỗi format số
                     }
                 }
             }
 
-            // Chỉ tính và in ra nếu có người đánh giá
             if (countMale > 0 || countFemale > 0) {
                 double avgMale = countMale > 0 ? sumMale / countMale : 0.0;
                 double avgFemale = countFemale > 0 ? sumFemale / countFemale : 0.0;
@@ -130,7 +116,6 @@ public class GenderRatingAnalysis {
         }
     }
 
-    // ================= DRIVER =================
     public static void main(String[] args) throws Exception {
         if (args.length != 4) {
             System.err.println("Cách chạy: GenderRatingAnalysis <input_ratings> <output_dir> <users_file> <movies_file>");
@@ -151,8 +136,8 @@ public class GenderRatingAnalysis {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
-        job.addCacheFile(new Path(args[2]).toUri()); // file users
-        job.addCacheFile(new Path(args[3]).toUri()); // file movies
+        job.addCacheFile(new Path(args[2]).toUri());
+        job.addCacheFile(new Path(args[3]).toUri());
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
