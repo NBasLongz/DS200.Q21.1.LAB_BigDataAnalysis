@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.DoubleWritable; 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -31,14 +31,14 @@ public class MovieRatingAnalysis {
             URI[] cacheFiles = context.getCacheFiles();
             if (cacheFiles != null && cacheFiles.length > 0) {
                 File moviesFile = new File(cacheFiles[0].getPath());
-                BufferedReader br = new BufferedReader(new FileReader(moviesFile));
+                BufferedReader br = new BufferedReader(new FileReader(moviesFile));  
                 String line;
                 
                 while ((line = br.readLine()) != null) {
                     String[] parts = line.split(",");
                     
                     if (parts.length >= 2) {
-                        String movieId = parts[0].trim();
+                        String movieId = parts[0].trim();  
                         String title = parts[1].trim();
                         movieTitleMap.put(movieId, title);
                     }
@@ -55,12 +55,12 @@ public class MovieRatingAnalysis {
             if (parts.length >= 3) {
                 try {
                     String movieId = parts[1].trim(); 
-                    double rating = Double.parseDouble(parts[2].trim()); 
+                    double rating = Double.parseDouble(parts[2].trim());
 
                     String title = movieTitleMap.get(movieId);
 
                     if (title != null) {
-                        titleKey.set(title);
+                        titleKey.set(title); 
                         ratingValue.set(rating);
                         context.write(titleKey, ratingValue);
                     }

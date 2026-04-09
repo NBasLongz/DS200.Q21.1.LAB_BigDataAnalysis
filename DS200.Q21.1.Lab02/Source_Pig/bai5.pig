@@ -1,17 +1,22 @@
 
--- BÀI 5: TOP 5 TỪ LIÊN QUAN NHẤT THEO CATEGORY
+data = LOAD 'Output/BaiTap1' USING PigStorage('\t') 
+AS (id:int, word:chararray, category:chararray, aspect:chararray, sentiment:chararray);
 
-bai1 = LOAD 'Output/BaiTap1' USING PigStorage('\t') 
-       AS (id:int, word:chararray, category:chararray, aspect:chararray, sentiment:chararray);
+-- Đếm tần số theo (category, word)
+grp = GROUP data BY (category, word);
 
-aw_g   = GROUP bai1 BY (category, word);
-aw_c   = FOREACH aw_g GENERATE FLATTEN(group) AS (category, word), COUNT(bai1) AS freq;
-aw_cat = GROUP aw_c BY category;
-aw_top5 = FOREACH aw_cat {
-    s = ORDER aw_c BY freq DESC;
-    t = LIMIT s 5;
-    GENERATE FLATTEN(t);
+cnt = FOREACH grp GENERATE 
+    FLATTEN(group) AS (category, word),
+    COUNT(data) AS freq;
+
+-- Nhóm theo category
+grp_cat = GROUP cnt BY category;
+
+-- Lấy top 5 mỗi category
+top5 = FOREACH grp_cat {
+    sorted = ORDER cnt BY freq DESC;
+    top = LIMIT sorted 5;
+    GENERATE group AS category, FLATTEN(top);
 };
 
-STORE aw_top5 INTO 'Output/BaiTap5_Top5_Related' USING PigStorage('\t');
-
+STORE top5 INTO 'Output/BaiTap5' USING PigStorage('\t');

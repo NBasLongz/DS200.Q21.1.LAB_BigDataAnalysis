@@ -1,32 +1,39 @@
+data = LOAD 'Output/BaiTap1' USING PigStorage('\t') 
+AS (id:int, word:chararray, category:chararray, aspect:chararray, sentiment:chararray);
 
--- BÀI 4: TOP 5 TỪ TÍCH CỰC / TIÊU CỰC THEO CATEGORY
+-- POSITIVE
+pos = FILTER data BY sentiment == 'positive';
 
-%declare INPUT_PATH 'Output/BaiTap1'
-%declare POS_OUTPUT 'Output/BaiTap4_top5_positive'
-%declare NEG_OUTPUT 'Output/BaiTap4_top5_negative'
+grp_pos = GROUP pos BY (category, word);
+cnt_pos = FOREACH grp_pos GENERATE 
+    FLATTEN(group) AS (category, word), 
+    COUNT(pos) AS freq;
 
-data = LOAD '$INPUT_PATH' USING PigStorage('\t') 
-       AS (id:int, word:chararray, category:chararray, aspect:chararray, sentiment:chararray);
+grp_cat_pos = GROUP cnt_pos BY category;
 
--- 4A. POSITIVE
-pos_words  = FILTER data BY sentiment == 'positive';
-pos_counts = FOREACH (GROUP pos_words BY (category, word)) 
-             GENERATE FLATTEN(group) AS (category, word), COUNT(pos_words) AS freq;
-pos_top5   = FOREACH (GROUP pos_counts BY category) {
-    sorted = ORDER pos_counts BY freq DESC;
-    top5   = LIMIT sorted 5;
-    GENERATE FLATTEN(top5);
+top_pos = FOREACH grp_cat_pos {
+    sorted = ORDER cnt_pos BY freq DESC;
+    top5 = LIMIT sorted 5;
+    GENERATE group AS category, FLATTEN(top5);
 };
-STORE pos_top5 INTO '$POS_OUTPUT' USING PigStorage('\t');
 
--- 4B. NEGATIVE
-neg_words  = FILTER data BY sentiment == 'negative';
-neg_counts = FOREACH (GROUP neg_words BY (category, word)) 
-             GENERATE FLATTEN(group) AS (category, word), COUNT(neg_words) AS freq;
-neg_top5   = FOREACH (GROUP neg_counts BY category) {
-    sorted = ORDER neg_counts BY freq DESC;
-    top5   = LIMIT sorted 5;
-    GENERATE FLATTEN(top5);
+STORE top_pos INTO 'Output/BaiTap4_Positive' USING PigStorage('\t');
+
+
+-- NEGATIVE
+neg = FILTER data BY sentiment == 'negative';
+
+grp_neg = GROUP neg BY (category, word);
+cnt_neg = FOREACH grp_neg GENERATE 
+    FLATTEN(group) AS (category, word), 
+    COUNT(neg) AS freq;
+
+grp_cat_neg = GROUP cnt_neg BY category;
+
+top_neg = FOREACH grp_cat_neg {
+    sorted = ORDER cnt_neg BY freq DESC;
+    top5 = LIMIT sorted 5;
+    GENERATE group AS category, FLATTEN(top5);
 };
-STORE neg_top5 INTO '$NEG_OUTPUT' USING PigStorage('\t');
 
+STORE top_neg INTO 'Output/BaiTap4_Negative' USING PigStorage('\t');

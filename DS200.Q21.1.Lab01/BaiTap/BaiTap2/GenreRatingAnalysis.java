@@ -65,7 +65,7 @@ public class GenreRatingAnalysis {
                         ratingValue.set(rating);
 
                         for (String genre : genres) {
-                            genreKey.set(genre.trim());
+                            genreKey.set(genre.trim());  
                             context.write(genreKey, ratingValue);
                         }
                     }

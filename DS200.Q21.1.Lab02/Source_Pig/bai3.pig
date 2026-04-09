@@ -1,27 +1,25 @@
-
--- BÀI 3: KHÍA CẠNH TÍCH CỰC NHẤT & TIÊU CỰC NHẤT
-
 raw = LOAD 'Data/hotel-review.csv' USING PigStorage(';') 
-      AS (id:int, review:chararray, category:chararray, aspect:chararray, sentiment:chararray);
+AS (id:int, review:chararray, category:chararray, aspect:chararray, sentiment:chararray);
 
+clean = FOREACH raw GENERATE 
+    id,
+    review,
+    category,
+    aspect,
+    LOWER(TRIM(REPLACE(sentiment, '\\r|\\n', ''))) AS sentiment;
 
--- 3a. SẮP XẾP SỐ ĐÁNH GIÁ NEGATIVE THEO ASPECT
+-- NEGATIVE
+neg = FILTER clean BY sentiment == 'negative';
+grp_neg = GROUP neg BY aspect;
+cnt_neg = FOREACH grp_neg GENERATE group AS aspect, COUNT(neg) AS total;
+sorted_neg = ORDER cnt_neg BY total DESC;
 
-negative_reviews = FILTER raw BY sentiment == 'negative';
-neg_grouped = GROUP negative_reviews BY aspect;
-neg_count = FOREACH neg_grouped GENERATE group AS aspect, COUNT(negative_reviews) AS neg_total;
-neg_sorted = ORDER neg_count BY neg_total DESC;
+STORE sorted_neg INTO 'Output/BaiTap3_NegativeAll' USING PigStorage('\t');
 
--- Chỉ cần lưu danh sách tổng đã sắp xếp
-STORE neg_sorted INTO 'Output/BaiTap3_NegativeAll' USING PigStorage('\t');
+-- POSITIVE
+pos = FILTER clean BY sentiment == 'positive';
+grp_pos = GROUP pos BY aspect;
+cnt_pos = FOREACH grp_pos GENERATE group AS aspect, COUNT(pos) AS total;
+sorted_pos = ORDER cnt_pos BY total DESC;
 
-
--- 3b. SẮP XẾP SỐ ĐÁNH GIÁ POSITIVE THEO ASPECT
-
-positive_reviews = FILTER raw BY sentiment == 'positive';
-pos_grouped = GROUP positive_reviews BY aspect;
-pos_count = FOREACH pos_grouped GENERATE group AS aspect, COUNT(positive_reviews) AS pos_total;
-pos_sorted = ORDER pos_count BY pos_total DESC;
-
--- Chỉ cần lưu danh sách tổng đã sắp xếp
-STORE pos_sorted INTO 'Output/BaiTap3_PositiveAll' USING PigStorage('\t');
+STORE sorted_pos INTO 'Output/BaiTap3_PositiveAll' USING PigStorage('\t');
