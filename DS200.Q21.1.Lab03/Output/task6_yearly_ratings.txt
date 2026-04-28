@@ -1,0 +1,2 @@
+Year|AvgRating|Count
+2020|3.7527|184
