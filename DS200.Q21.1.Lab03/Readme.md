@@ -1,4 +1,3 @@
-```markdown
 # DS200 - LAB 03: PHÂN TÍCH DỮ LIỆU MOVIELENS VỚI APACHE SPARK RDD
 
 ## 1. Giới thiệu Dự án
@@ -36,25 +35,15 @@ Dự án chạy trên môi trường giả lập cluster (local):
 
 DS200.Q21.1.Lab03/
 ├── Data/                   # Dữ liệu đầu vào (*.txt)
-
 ├── src/                    # Source code
-
 │   ├── Task1..Task6/       # 6 bài toán phân tích
-
 │   ├── model/              # Các class (RatingStats,...)
-
 │   └── util/               # Công cụ hỗ trợ (Format, IO, Parse)
-
 ├── scripts/
-
 │   └── run_all.sh          # Script chạy toàn bộ
-
 ├── Output/                 # Kết quả (6 file .txt)
-
 ├── target/                 # File .jar sau khi build
-
 ├── pom.xml                 # Maven config
-
 └── README.md               # Tài liệu
 
 ````
