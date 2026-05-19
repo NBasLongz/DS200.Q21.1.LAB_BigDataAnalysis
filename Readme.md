@@ -156,6 +156,63 @@ bash run_all.sh                  # Execute all tasks
 
 ---
 
+### 📚 Lab 04: Apache Spark DataFrame Analysis
+**Location**: `DS200.Q21.1.Lab04/`
+
+**Objective**: Analyze e-commerce CSV datasets using Apache Spark DataFrame and Java Spark DataFrame API.
+
+**Technologies**:
+- Apache Spark 3.5.x
+- Apache Maven 3.8+
+- Java 11+
+- Spark DataFrame API
+
+**Tasks**:
+1. Load semicolon-delimited CSV datasets with inferred schema
+2. Count total orders, unique customers, unique sellers
+3. Analyze orders by country
+4. Analyze orders by purchase year/month
+5. Analyze review score statistics
+6. Analyze 2024 revenue by product category
+7. Analyze delivery performance (task 8 in code)
+8. Analyze customer segments (task 9 in code)
+
+**Project Structure**:
+```
+DS200.Q21.1.Lab04/
+├── README.md
+├── data/                          # Input CSV data files
+├── notebook/                      # Analysis notebooks
+├── output/                        # Generated report outputs
+├── screenshots/                   # Result screenshots
+├── scripts/                       # Execution scripts
+│   ├── run_all.sh
+│   ├── run_one.sh
+│   └── preview_outputs.sh
+└── spark/                         # Spark application project
+    ├── pom.xml
+    ├── src/
+    │   ├── common/
+    │   ├── task1/
+    │   ├── task2/
+    │   ├── task3/
+    │   ├── task4/
+    │   ├── task5/
+    │   ├── task6/
+    │   ├── task8/
+    │   └── task9/
+    └── target/                    # Maven build outputs
+```
+
+**Running Lab 04**:
+```bash
+cd DS200.Q21.1.Lab04
+chmod +x scripts/*.sh
+./scripts/run_all.sh
+```
+
+---
+
 ## Common Dataset (MovieLens)
 
 All three labs use the same movie ratings dataset:
@@ -208,6 +265,17 @@ DS200.Q21.1.LAB/
     ├── pom.xml                         # Maven configuration
     ├── screenshots/                    # Result images
     └── Readme.md                       # Lab documentation
+
+└── DS200.Q21.1.Lab04/                  # Spark DataFrame Lab
+    ├── data/                           # E-commerce CSV datasets
+    ├── notebook/                       # Analysis notebooks
+    ├── output/                         # Generated report outputs
+    ├── screenshots/                    # Result screenshots
+    ├── scripts/                        # Execution scripts
+    └── spark/                          # Spark application source and Maven project
+        ├── pom.xml
+        ├── src/
+        └── target/
 ```
 
 ---
