@@ -1,0 +1,9 @@
+TASK 2 - OVERALL STATISTICS
+Total orders                  : 99441
+Total customers               : 102727
+Total unique sellers          : 3095
+
+Data-quality checks:
+Order table rows              : 99441
+Distinct Customer_Trx_ID      : 99441
+Distinct Subscriber_ID        : 99382

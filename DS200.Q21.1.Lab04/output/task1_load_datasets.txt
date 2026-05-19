@@ -1,0 +1,71 @@
+TASK 1 - LOAD CSV FILES WITH INFERRED SCHEMA
+Delimiter: semicolon (;), header=true, inferSchema=true
+
+============================================================
+Dataset: Orders.csv
+Rows   : 99441
+Columns: 8
+Schema :
+  - Order_ID : string
+  - Customer_Trx_ID : string
+  - Order_Status : string
+  - Order_Purchase_Timestamp : string
+  - Order_Approved_At : string
+  - Order_Delivered_Carrier_Date : string
+  - Order_Delivered_Customer_Date : string
+  - Order_Estimated_Delivery_Date : string
+
+============================================================
+Dataset: Customer_List.csv
+Rows   : 102727
+Columns: 10
+Schema :
+  - Customer_Trx_ID : string
+  - Subscriber_ID : string
+  - Subscribe_Date : string
+  - First_Order_Date : string
+  - Customer_Postal_Code : string
+  - Customer_City : string
+  - Customer_Country : string
+  - Customer_Country_Code : string
+  - Age : int
+  - Gender : string
+
+============================================================
+Dataset: Order_Items.csv
+Rows   : 112650
+Columns: 7
+Schema :
+  - Order_ID : string
+  - Order_Item_ID : int
+  - Product_ID : string
+  - Seller_ID : string
+  - Shipping_Limit_Date : string
+  - Price : double
+  - Freight_Value : double
+
+============================================================
+Dataset: Products.csv
+Rows   : 32951
+Columns: 6
+Schema :
+  - Product_ID : string
+  - Product_Category_Name : string
+  - Product_Weight_Gr : int
+  - Product_Length_Cm : int
+  - Product_Height_Cm : int
+  - Product_Width_Cm : int
+
+============================================================
+Dataset: Order_Reviews.csv
+Rows   : 99223
+Columns: 7
+Schema :
+  - Review_ID : string
+  - Order_ID : string
+  - Review_Score : int
+  - Review_Comment_Title_En : string
+  - Review_Comment_Message_En : string
+  - Review_Creation_Date : string
+  - Review_Answer_Timestamp : string
+

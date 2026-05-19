@@ -1,0 +1,66 @@
+TASK 9 - CUSTOMER SEGMENTATION
+Features: Order_Count, Avg_Order_Value, Total_Spent, and Purchase_Frequency_Per_30_Days.
+Segments: High_Value_Loyal, Loyal, Big_Spender, Occasional.
+Total customers used: 96096
+
+A. Segment summary
+Customer_Segment | Customer_Count | Avg_Order_Count | Avg_Order_Value | Avg_Frequency_30_Days | Segment_Revenue
+-----------------+----------------+-----------------+-----------------+-----------------------+----------------
+Big_Spender      | 19371          | 1.03            | 424.9           | 29.7162               | 8408645.04     
+Occasional       | 76473          | 1.03            | 92.7            | 29.7391               | 7309184.98     
+Loyal            | 203            | 3.42            | 101.1           | 14.2752               | 70829.07       
+High_Value_Loyal | 49             | 3.22            | 345.44          | 6.4759                | 54894.15       
+
+B. Top 50 customers by total spending
+Subscriber_ID                    | Customer_Country | Customer_City    | Order_Count | Avg_Order_Value | Total_Spent | Purchase_Frequency_Per_30_Days | Customer_Segment
+---------------------------------+------------------+------------------+-------------+-----------------+-------------+--------------------------------+-----------------
+0a0a92112bd4c708ca5fde585afaa872 | France           | Paris            | 1           | 13664.08        | 13664.08    | 30.0000                        | Big_Spender     
+da122df9eeddfedc1dc1f5349a1a690c | France           | Saint-Denis      | 2           | 3785.82         | 7571.63     | 60.0000                        | Big_Spender     
+763c8b1c9c68a0229c42c9fc6f662b93 | Czechia          | Brno             | 1           | 7274.88         | 7274.88     | 30.0000                        | Big_Spender     
+dc4802a71eae9be1dd28f5d788ceb526 | Norway           | Oslo             | 1           | 6929.31         | 6929.31     | 30.0000                        | Big_Spender     
+459bef486812aa25204be022145caa62 | Czechia          | Prague           | 1           | 6922.21         | 6922.21     | 30.0000                        | Big_Spender     
+ff4159b92c40ebe40454e3e6a7c35ed6 | Germany          | Aachen           | 1           | 6726.66         | 6726.66     | 30.0000                        | Big_Spender     
+4007669dec559734d6f53e029e360987 | Netherlands      | Breda            | 1           | 6081.54         | 6081.54     | 30.0000                        | Big_Spender     
+5d0a2980b292d049061542014e8960bf | Italy            | Rome             | 1           | 4809.44         | 4809.44     | 30.0000                        | Big_Spender     
+eebb5dda148d3893cdaf5b5ca3040ccb | Germany          | Wuppertal        | 1           | 4764.34         | 4764.34     | 30.0000                        | Big_Spender     
+48e1ac109decbb87765a3eade6854098 | Slovakia         | Bratislava       | 1           | 4681.78         | 4681.78     | 30.0000                        | Big_Spender     
+c8460e4251689ba205045f3ea17884a1 | Belgium          | Antwerp          | 4           | 1163.97         | 4655.88     | 120.0000                       | High_Value_Loyal
+edde2314c6c30e864a128ac95d6b2112 | Germany          | Berlin           | 1           | 4513.32         | 4513.32     | 30.0000                        | Big_Spender     
+a229eba70ec1c2abef51f04987deb7a5 | France           | Marseille        | 1           | 4445.5          | 4445.5      | 30.0000                        | Big_Spender     
+edf81e1f3070b9dac83ec83dacdbb9bc | Poland           | Warsaw           | 1           | 4194.76         | 4194.76     | 30.0000                        | Big_Spender     
+fa562ef24d41361e476e748681810e1e | Netherlands      | Haarlem          | 1           | 4175.26         | 4175.26     | 30.0000                        | Big_Spender     
+ca27f3dac28fb1063faddd424c9d95fa | Netherlands      | Apeldoorn        | 1           | 4163.51         | 4163.51     | 30.0000                        | Big_Spender     
+055ec572ac7f3c7bdd04a183830ebe59 | Germany          | Berlin           | 2           | 2026.54         | 4053.08     | 2.0000                         | Big_Spender     
+5e713be0853d8986528d7869a0811d2b | Sweden           | Stockholm        | 1           | 4042.74         | 4042.74     | 30.0000                        | Big_Spender     
+58483a1c055dfb600f57c5b867174542 | Germany          | Essen            | 1           | 4034.44         | 4034.44     | 30.0000                        | Big_Spender     
+011875f0176909c5cf0b14a9138bb691 | Germany          | Berlin           | 1           | 4016.91         | 4016.91     | 30.0000                        | Big_Spender     
+f0767ae738c3d90e7b737d7b8b8bb4d1 | France           | Paris            | 1           | 3979.55         | 3979.55     | 30.0000                        | Big_Spender     
+bc5e25094a7d51b6aee35236572e64f4 | Netherlands      | Rotterdam        | 1           | 3826.8          | 3826.8      | 30.0000                        | Big_Spender     
+3fec1a05177762f279472253113d568a | Spain            | Madrid           | 1           | 3792.59         | 3792.59     | 30.0000                        | Big_Spender     
+5d09b0d82126457e2a8ebfb9c9a1ffc4 | Poland           | Warsaw           | 1           | 3736.22         | 3736.22     | 30.0000                        | Big_Spender     
+931eabdf0636b8fd60369a8d759917d6 | Switzerland      | Geneva           | 1           | 3666.42         | 3666.42     | 30.0000                        | Big_Spender     
+03796b63235e0e0a299084988c662c7e | Poland           | Warsaw           | 1           | 3602.47         | 3602.47     | 30.0000                        | Big_Spender     
+59d66d72939bc9497e19d89c61a96d5f | Germany          | Berlin           | 2           | 1780.0          | 3559.99     | 0.3727                         | Big_Spender     
+2c3b08cf3584d8c0a81d9618a73aa219 | Germany          | Hamburg          | 1           | 3526.46         | 3526.46     | 30.0000                        | Big_Spender     
+95a744604de66a2e40e18086e69be4f2 | Slovakia         | Bratislava       | 1           | 3406.47         | 3406.47     | 30.0000                        | Big_Spender     
+76a08544f95591acec0d4c976054c459 | United Kingdom   | Stoke-on-Trent   | 1           | 3358.24         | 3358.24     | 30.0000                        | Big_Spender     
+ce3fe361f9e68bf0a813baaae1334d01 | Netherlands      | Amsterdam        | 1           | 3351.35         | 3351.35     | 30.0000                        | Big_Spender     
+7a96eb0a685f5c19b7dad29fc802aa64 | Belgium          | Liège            | 1           | 3297.4          | 3297.4      | 30.0000                        | Big_Spender     
+9b11e010850a4045d2da80c7783fdbd1 | Germany          | Berlin           | 1           | 3256.14         | 3256.14     | 30.0000                        | Big_Spender     
+adfa1cab2b2c8706db21bb13c0a1beb1 | Denmark          | Copenhagen       | 1           | 3242.84         | 3242.84     | 30.0000                        | Big_Spender     
+bbeb907759ef5fc169099af3c88d535d | Switzerland      | Geneva           | 1           | 3209.72         | 3209.72     | 30.0000                        | Big_Spender     
+1b76903617af13189607a36b0469f6f3 | Serbia           | Belgrade         | 1           | 3195.74         | 3195.74     | 30.0000                        | Big_Spender     
+6f00d356a4be20527662aaf12116baab | Spain            | Barcelona        | 1           | 3184.55         | 3184.55     | 30.0000                        | Big_Spender     
+46450c74a0d8c5ca9395da1daac6c120 | Switzerland      | Zurich           | 3           | 1061.45         | 3184.34     | 3.7500                         | High_Value_Loyal
+53fb3435773a4690e56010b169ee2820 | Netherlands      | Breda            | 1           | 3155.82         | 3155.82     | 30.0000                        | Big_Spender     
+c6111f70f40b3420e387493c627c27fa | France           | Clermont-Ferrand | 1           | 3126.5          | 3126.5      | 30.0000                        | Big_Spender     
+895617ab63a9ad8881d9470f7427cd25 | Austria          | Vienna           | 1           | 3126.5          | 3126.5      | 30.0000                        | Big_Spender     
+be825ddd3b40db3f91bf05b4e9435d56 | United Kingdom   | London           | 1           | 3122.72         | 3122.72     | 30.0000                        | Big_Spender     
+f886a3f43af9ac928fbb4b56436c528c | Germany          | Berlin           | 1           | 3076.13         | 3076.13     | 30.0000                        | Big_Spender     
+58c1b085b54c03a1f1ab5f13d64c2b1c | Spain            | Madrid           | 2           | 1532.36         | 3064.72     | 60.0000                        | Big_Spender     
+ff0ae98646e7bbb41cf0f0d3991fef98 | United Kingdom   | Coventry         | 1           | 3048.27         | 3048.27     | 30.0000                        | Big_Spender     
+0f75637a7e2f7b6ae43665d1f7d0ca5d | Norway           | Oslo             | 1           | 3044.12         | 3044.12     | 30.0000                        | Big_Spender     
+2ae8173a688e326821403a5b7a6858c2 | Netherlands      | Leiden           | 1           | 3042.36         | 3042.36     | 30.0000                        | Big_Spender     
+6172bd5b7f52ade8c6c4548b448ff54f | France           | Paris            | 1           | 3041.73         | 3041.73     | 30.0000                        | Big_Spender     
+ea984b06b18cc6905bc2f9b0a3d1c986 | Germany          | Mannheim         | 1           | 3024.08         | 3024.08     | 30.0000                        | Big_Spender     
+ef8d54b3797ea4db1d63f0ced6a906e9 | France           | Paris            | 1           | 3018.6          | 3018.6      | 30.0000                        | Big_Spender     

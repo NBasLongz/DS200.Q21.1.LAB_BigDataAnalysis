@@ -1,0 +1,15 @@
+TASK 5 - REVIEW SCORE STATISTICS
+Cleaning rule: cast Review_Score to integer, keep values from 1 to 5 only.
+Original review rows     : 99223
+Valid review rows        : 99223
+Invalid or NULL rows     : 0
+Average review score     : 4.0864
+
+Distribution by score:
+Review_Score | Review_Count
+-------------+-------------
+1            | 11424       
+2            | 3151        
+3            | 8179        
+4            | 19141       
+5            | 57328       

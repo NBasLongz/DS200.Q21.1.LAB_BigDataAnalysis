@@ -1,0 +1,66 @@
+TASK 8 - DELIVERY PERFORMANCE ANALYSIS
+Delay_Days = Order_Delivered_Carrier_Date - Shipping_Limit_Date.
+Negative value means the item was shipped before the expected shipping limit.
+Rows with NULL actual/expected delivery timestamps are excluded.
+Valid order-item rows used: 111456
+
+A. Delivery performance summary
+Delivery_Performance | Item_Count | Avg_Delay_Days | Min_Delay_Days | Max_Delay_Days
+---------------------+------------+----------------+----------------+---------------
+Early                | 100851     | -4.00          | -1055.24       | -0.01         
+Late                 | 10372      | 3.12           | 0.01           | 117.76        
+On_Time              | 233        | 0.00           | 0.00           | 0.00          
+
+B. Top 50 latest order items by delay days
+Order_ID                         | Order_Item_ID | Seller_ID                        | Order_Status | Expected_Delivery_Time | Actual_Delivery_Time  | Delay_Days | Delivery_Performance
+---------------------------------+---------------+----------------------------------+--------------+------------------------+-----------------------+------------+---------------------
+da81fbc27b55e0f3d2813cf2078dc780 | 1             | 5d378b73ab7dd6f0418d743e5dcb0bd1 | delivered    | 2023-11-23 21:26:00.0  | 2024-03-20 15:44:00.0 | 117.76     | Late                
+8b7fd198ad184563c231653673e75a7f | 1             | e09887ca8c7bf8a4621ce481820414ef | delivered    | 2023-11-23 08:47:00.0  | 2024-02-26 17:27:00.0 | 95.36      | Late                
+97f48024fcc76f1898e397ad6966e3a0 | 1             | 9b522ba7eae9e1d04082f267144583cc | delivered    | 2023-12-15 12:41:00.0  | 2024-03-16 13:58:00.0 | 92.05      | Late                
+866314550f6d7a55c82917d9b4463e1f | 1             | 9c0e69c7bf2619675bbadf47b43f655a | delivered    | 2023-11-23 02:30:00.0  | 2024-01-21 16:12:00.0 | 59.57      | Late                
+866314550f6d7a55c82917d9b4463e1f | 2             | 9c0e69c7bf2619675bbadf47b43f655a | delivered    | 2023-11-23 02:30:00.0  | 2024-01-21 16:12:00.0 | 59.57      | Late                
+5cc475c7c03290048eb2e742cd64cb5e | 1             | 897060da8b9a21f655304d50fd935913 | delivered    | 2022-10-09 03:10:00.0  | 2022-12-06 17:24:00.0 | 58.59      | Late                
+2805499c211b52dfc1e64a1349ef45e2 | 1             | d98eec89afa3380e14463da2aabaea72 | delivered    | 2024-02-23 15:27:00.0  | 2024-04-16 13:54:00.0 | 52.94      | Late                
+7d86c4aa9e59504b23f16c7ca68954a7 | 1             | 8d92f3ea807b89465643c219455e7369 | delivered    | 2023-01-31 16:38:00.0  | 2023-03-21 14:40:00.0 | 48.92      | Late                
+bfbd0f9bdef84302105ad712db648a6c | 1             | ecccfa2bb93b34a3bf033cc5d1dcdc69 | delivered    | 2022-09-19 23:11:00.0  | 2022-11-07 17:11:00.0 | 48.75      | Late                
+bfbd0f9bdef84302105ad712db648a6c | 2             | ecccfa2bb93b34a3bf033cc5d1dcdc69 | delivered    | 2022-09-19 23:11:00.0  | 2022-11-07 17:11:00.0 | 48.75      | Late                
+bfbd0f9bdef84302105ad712db648a6c | 3             | ecccfa2bb93b34a3bf033cc5d1dcdc69 | delivered    | 2022-09-19 23:11:00.0  | 2022-11-07 17:11:00.0 | 48.75      | Late                
+5d6e9993ecc20a59e637ce711858d081 | 1             | 6ee85be3693ed79a8e80718743d80655 | delivered    | 2023-01-26 11:26:00.0  | 2023-03-13 09:16:00.0 | 45.91      | Late                
+abbbf52551bc34cd52a7851c06dfca90 | 1             | 586a871d4f1221763fddb6ceefdeb95e | delivered    | 2023-01-30 23:20:00.0  | 2023-03-17 09:45:00.0 | 45.43      | Late                
+abbbf52551bc34cd52a7851c06dfca90 | 2             | 586a871d4f1221763fddb6ceefdeb95e | delivered    | 2023-01-30 23:20:00.0  | 2023-03-17 09:45:00.0 | 45.43      | Late                
+d8734ba226623cf1c86b3cce8cbffa78 | 1             | 0b35c634521043bf4b47e21547b99ab5 | delivered    | 2024-02-06 15:35:00.0  | 2024-03-21 16:12:00.0 | 44.03      | Late                
+00e054d0da011d5016f31011af488f4f | 1             | c3867b4666c7d76867627c2f7fb22e21 | delivered    | 2024-03-15 20:08:00.0  | 2024-04-27 17:50:00.0 | 42.90      | Late                
+e4d88b96fb1801eb436496008e848e1a | 1             | 4170f6a9367e6b5d6401d03ce6d54569 | delivered    | 2023-12-27 00:52:00.0  | 2024-02-06 22:38:00.0 | 41.91      | Late                
+5da2004d85f2828349d887c989da2adc | 1             | 87f3e35268860433e13d577825aada95 | delivered    | 2022-10-11 02:48:00.0  | 2022-11-21 10:23:00.0 | 41.32      | Late                
+b77b82b683e9956ecdf55514de3d1f1d | 1             | ec4608a1f76453166bb312b2968aeaf4 | delivered    | 2023-11-10 20:09:00.0  | 2023-12-21 17:22:00.0 | 40.88      | Late                
+67e9625c39f8c6e529f81ad4c28acc5e | 1             | 712e6ed8aa4aa1fa65dab41fed5737e4 | delivered    | 2023-02-15 22:30:00.0  | 2023-03-28 14:10:00.0 | 40.65      | Late                
+a4a57f1ffa25b90dea9f150fee89db84 | 1             | 8e670472e453ba34a379331513d6aab1 | delivered    | 2023-09-27 17:15:00.0  | 2023-11-06 20:51:00.0 | 40.15      | Late                
+63638a6806d67773f3adba8534553fff | 1             | b335c59ab742f751a85db9c411a86739 | delivered    | 2022-10-08 13:47:00.0  | 2022-11-17 15:53:00.0 | 40.09      | Late                
+8ab08a832f16966f270a9bbffe395cfa | 1             | aac29b1b99776be73c3049939652091d | delivered    | 2024-01-19 02:31:00.0  | 2024-02-27 23:06:00.0 | 39.86      | Late                
+8ab08a832f16966f270a9bbffe395cfa | 2             | aac29b1b99776be73c3049939652091d | delivered    | 2024-01-19 02:31:00.0  | 2024-02-27 23:06:00.0 | 39.86      | Late                
+8ab08a832f16966f270a9bbffe395cfa | 3             | aac29b1b99776be73c3049939652091d | delivered    | 2024-01-19 02:31:00.0  | 2024-02-27 23:06:00.0 | 39.86      | Late                
+80606b26965c5ed21e85a085e0667b63 | 1             | 77530e9772f57a62c906e1c21538ab82 | delivered    | 2022-10-10 07:46:00.0  | 2022-11-17 11:21:00.0 | 38.15      | Late                
+3b2ca3293a7ce539ea2379d704fa37ce | 1             | dd2bdf855a9172734fbc3744021ae9b9 | delivered    | 2022-10-10 15:47:00.0  | 2022-11-17 11:54:00.0 | 37.84      | Late                
+262118ce178bb3e4590a3adcf6d62e6b | 1             | b56906f7fd1696e043f1bcce164c487b | delivered    | 2022-10-11 12:13:00.0  | 2022-11-17 08:27:00.0 | 36.84      | Late                
+262118ce178bb3e4590a3adcf6d62e6b | 2             | b56906f7fd1696e043f1bcce164c487b | delivered    | 2022-10-11 12:13:00.0  | 2022-11-17 08:27:00.0 | 36.84      | Late                
+10c5eb3ea9a23055a311c44022b574eb | 1             | 95b293867b5862941c9cd74f756a3c68 | delivered    | 2024-02-07 03:12:00.0  | 2024-03-14 21:37:00.0 | 36.77      | Late                
+7b9969738a7e690d13867eedd1fef01a | 1             | 9c0e69c7bf2619675bbadf47b43f655a | delivered    | 2024-01-11 12:08:00.0  | 2024-02-17 02:18:00.0 | 36.59      | Late                
+30d6ee4a4d29531562ae9ca6c0635d61 | 1             | c3867b4666c7d76867627c2f7fb22e21 | delivered    | 2023-10-19 03:21:00.0  | 2023-11-24 16:43:00.0 | 36.56      | Late                
+7141a7eee8944cb711fa1fd4f76300bc | 1             | 054694fa03fe82cec4b7551487331d74 | delivered    | 2024-01-16 12:26:00.0  | 2024-02-21 20:38:00.0 | 36.34      | Late                
+6460e331ee8f69c01f1423cca48d9991 | 1             | ce27a3cc3c8cc1ea79d11e561e9bebb6 | delivered    | 2022-10-15 05:02:00.0  | 2022-11-20 09:57:00.0 | 36.20      | Late                
+9d3c48c87bfb7e8b574b4d375f882841 | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 00:31:00.0  | 2024-01-04 23:05:00.0 | 35.94      | Late                
+63fc384c8e172e856d4cde83ce2a5234 | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 00:59:00.0  | 2024-01-04 23:15:00.0 | 35.93      | Late                
+fcf77320278b491829c6e5d767a3f20d | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 02:16:00.0  | 2024-01-04 23:29:00.0 | 35.88      | Late                
+38541d08d4eb7d571b5b80cb6ca9be03 | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | shipped      | 2023-11-30 00:52:00.0  | 2024-01-04 21:07:00.0 | 35.84      | Late                
+1db522d84fad144624204d532f5277f4 | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 02:38:00.0  | 2024-01-04 20:44:00.0 | 35.75      | Late                
+beed527292a9e9a0e10bc602565b510c | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 02:54:00.0  | 2024-01-04 20:23:00.0 | 35.73      | Late                
+f92ebc52a42344683b930dfb16d2f317 | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 04:18:00.0  | 2024-01-04 21:28:00.0 | 35.72      | Late                
+f92ebc52a42344683b930dfb16d2f317 | 2             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 04:18:00.0  | 2024-01-04 21:28:00.0 | 35.72      | Late                
+67ca959c49356f3b0b6ec2b340cabccf | 1             | c990d6cf976a5718aaedc539f383ab88 | delivered    | 2024-01-22 03:50:00.0  | 2024-02-26 19:37:00.0 | 35.66      | Late                
+840d7cc10efae8ba460cc8ea84f1b6db | 1             | 244b04680fdbded0acf5aebd9c92b44a | delivered    | 2023-12-26 11:12:00.0  | 2024-01-31 01:27:00.0 | 35.59      | Late                
+766a7aafdf6f237885465c7487a30eb7 | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 10:54:00.0  | 2024-01-04 22:34:00.0 | 35.49      | Late                
+2f80f814bc64931dfec546e11216cbef | 1             | 0bf0150d5b9d60d9cd2906003332f085 | delivered    | 2023-03-09 02:15:00.0  | 2023-04-13 12:47:00.0 | 35.44      | Late                
+cb503219f1a73d8a4dfe8561be373c99 | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | shipped      | 2023-11-30 11:31:00.0  | 2024-01-04 21:41:00.0 | 35.42      | Late                
+8ad14ad7dd26465b377d99c9e26eb76f | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 14:17:00.0  | 2024-01-04 22:24:00.0 | 35.34      | Late                
+48cefe210d7a04f470fd6592ea91ffb9 | 1             | 54965bbe3e4f07ae045b90b0b8541f52 | delivered    | 2023-11-30 13:31:00.0  | 2024-01-04 21:13:00.0 | 35.32      | Late                
+2e0ff81253a7fa54020cedbb9835d1c7 | 1             | b5abf4f36adc043117b4fca82c22984c | delivered    | 2023-04-18 02:42:00.0  | 2023-05-23 09:19:00.0 | 35.28      | Late                
