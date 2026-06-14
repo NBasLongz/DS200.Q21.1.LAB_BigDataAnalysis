@@ -1,0 +1,14 @@
+Báo cáo: pedestrians
+==================================================
+Độ phân giải : 960x540
+FPS          : 29.898672755815614
+Tổng frames  : 419
+Thời lượng   : 14.01s
+
+Phương pháp  : YOLO
+Tổng người   : 2883
+TB người/frame: 6.88
+Max người/frame: 10
+
+Thời xử lý  : 83.28s
+Tốc độ      : 5.03 fps

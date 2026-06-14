@@ -1,0 +1,17 @@
+# DS200.Q21.1 – Lab05: Distributed Real-Time Person Counting System
+# Python 3.8+
+
+# Computer-vision & detection
+opencv-python>=4.8.0
+numpy>=1.24.0,<2.0.0
+ultralytics>=8.3.0          # YOLOv8/YOLOv12
+
+
+# Optional – SAHI (Sliced Aided Hyper Inference)
+sahi>=0.11.0
+
+# Optional – MediaPipe (background removal / pose)
+mediapipe>=0.10.0
+
+# Utilities
+pillow>=10.0.0

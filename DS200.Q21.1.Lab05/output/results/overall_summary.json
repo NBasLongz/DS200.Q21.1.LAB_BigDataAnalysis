@@ -1,0 +1,33 @@
+{
+  "info": {
+    "total_videos": 1,
+    "total_time_s": 84.87,
+    "method": "YOLO",
+    "spark": true,
+    "finished_at": "2026-06-14T03:41:12.787408"
+  },
+  "videos": [
+    {
+      "video_name": "pedestrians",
+      "video_path": "/mnt/f/DS200.Q21.1.Lab05/data/video/pedestrians.mp4",
+      "video_info": {
+        "total_frames": 419,
+        "fps": 29.898672755815614,
+        "resolution": "960x540",
+        "duration_s": 14.01
+      },
+      "detection": {
+        "total_persons": 2883,
+        "frames_processed": 419,
+        "avg_persons_frame": 6.88,
+        "max_persons_frame": 10,
+        "method": "YOLO"
+      },
+      "processing": {
+        "time_s": 83.28,
+        "fps_proc": 5.03,
+        "finished_at": "2026-06-14T03:41:12.756482"
+      }
+    }
+  ]
+}

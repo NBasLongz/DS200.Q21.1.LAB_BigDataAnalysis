@@ -19,13 +19,15 @@
 
 ## Purpose
 
-This repository is the workspace for the course **DS200.Q21.1 — Big Data Analysis**. It contains three comprehensive lab assignments that cover major big data frameworks and technologies:
+This repository is the workspace for the course **DS200.Q21.1 — Big Data Analysis**. It contains five comprehensive lab assignments that cover major big data frameworks and technologies:
 
 1. **Lab 01**: Hadoop MapReduce - Movie ratings analysis using MapReduce programming model
 2. **Lab 02**: Apache Pig - Data processing using Pig Latin scripting language
 3. **Lab 03**: Apache Spark RDD - Distributed data analysis using Apache Spark with Java RDD API
+4. **Lab 04**: Apache Spark DataFrame - Distributed e-commerce data analysis using Spark DataFrame API
+5. **Lab 05**: YOLO + PySpark - Real-time and batch person counting system using socket communication, PySpark, and OpenCV
 
-All labs use the **MovieLens** dataset for analyzing movie ratings, genres, user demographics, and temporal patterns.
+All labs use the **MovieLens** dataset (except Lab 04 and Lab 05) for analyzing movie ratings, genres, user demographics, and temporal patterns.
 
 ---
 
@@ -209,6 +211,66 @@ DS200.Q21.1.Lab04/
 cd DS200.Q21.1.Lab04
 chmod +x scripts/*.sh
 ./scripts/run_all.sh
+```
+
+---
+
+### 📚 Lab 05: Real-time Person Counting System (YOLO + PySpark + OpenCV)
+**Location**: `.` (Root directory of this workspace)
+
+**Objective**: Build a distributed real-time person-counting system with YOLO detection and PySpark batch processing.
+
+**Technologies**:
+- Python 3.12
+- PySpark 3.5.8
+- Ultralytics YOLOv12
+- OpenCV (cv2)
+- TCP Sockets
+
+**Tasks**:
+1. Implement real-time camera/video frames streaming sender over TCP Socket.
+2. Implement forwarder receiver.
+3. Implement YOLO-based detector executing object detection and bounding boxes extraction.
+4. Implement storage server saving results to JSON database.
+5. Implement PySpark batch processor distributing person counting task over video files.
+6. Export annotated video and visual output frames with drawn bounding boxes.
+
+**Project Structure**:
+```
+DS200.Q21.1.Lab05/
+├── src/
+│   ├── config.py              # Centralized configuration
+│   ├── sender.py              # Frame sender (video/camera)
+│   ├── receiver.py            # Frame receiver and forwarder
+│   ├── detector.py            # YOLO detector server
+│   ├── storage.py             # Storage server saving JSON
+│   ├── batch_processor.py     # PySpark batch processor
+│   └── demo.py                # Main runner for real-time demo
+├── output/
+│   ├── detections.json        # Real-time detection output
+│   └── results/               # Batch processing output
+│       └── pedestrians/       # Results for pedestrians video
+│           ├── annotated_pedestrians.avi
+│           ├── annotated_frame_100.jpg
+│           └── annotated_frame_200.jpg
+```
+
+**Result Visualization**:
+
+Dưới đây là một số khung hình kết quả nhận diện được trích xuất (được vẽ bounding box màu xanh lá và hiển thị số lượng người đếm được):
+
+<p align="center">
+  <img src="output/results/pedestrians/annotated_frame_100.jpg" width="48%" alt="Frame 100" />
+  <img src="output/results/pedestrians/annotated_frame_200.jpg" width="48%" alt="Frame 200" />
+</p>
+
+**Running Lab 05**:
+```bash
+# Chạy realtime demo
+python3 src/demo.py --video data/video/pedestrians.mp4 --frames 150
+
+# Chạy batch processor bằng PySpark
+python3 src/batch_processor.py --no-sahi
 ```
 
 ---
